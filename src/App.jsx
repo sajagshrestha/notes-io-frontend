@@ -17,10 +17,10 @@ export const App = () => {
 					</Route>
 					{/* <Route path="/notes">
 						<NotesDashboard />
-					</Route>
+					</Route> */}
 					<Route path="/signup">
 						<Signup />
-					</Route> */}
+					</Route>
 				</Switch>
 			</MainWrapper>
 		</AppWrapper>
