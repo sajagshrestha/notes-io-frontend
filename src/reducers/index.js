@@ -1,8 +1,8 @@
-import themeReducer from "./ui/themeReducer";
 import { combineReducers } from "redux";
+import authReducer from "./data/authReducer";
 
 const rootReducer = combineReducers({
-	theme: themeReducer,
+	user: authReducer,
 });
 
 export default rootReducer;

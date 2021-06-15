@@ -1,18 +1,14 @@
 import React from "react";
 import signupSVG from "../../assets/signup.svg";
-import { SignupWrapper, SignupImg } from "./Signup.styles";
+import { PageWrapper, PageImg } from "../common/PageLayout";
 import SignupForm from "./SignupForm";
 
 const Signup = () => {
 	return (
-		<SignupWrapper>
-			<div>
-				<SignupImg src={signupSVG} alt="hero" />
-			</div>
-			<div>
-				<SignupForm />
-			</div>
-		</SignupWrapper>
+		<PageWrapper>
+			<PageImg src={signupSVG} alt="hero" />
+			<SignupForm />
+		</PageWrapper>
 	);
 };
 

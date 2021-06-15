@@ -3,6 +3,7 @@ import { TextField as MuiTextField } from "@material-ui/core";
 
 const TextField = styled(MuiTextField)`
 	.MuiOutlinedInput-root {
+		border-radius: 0;
 		& fieldset {
 			border-color: white;
 		}

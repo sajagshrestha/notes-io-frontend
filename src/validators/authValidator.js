@@ -7,7 +7,10 @@ export const initalSignupValues = {
 	passwordConfirmation: "",
 };
 
-export const initialLoginValues = {};
+export const initialLoginValues = {
+	email: "",
+	password: "",
+};
 
 export const signupValidationSchema = yup.object({
 	email: yup
@@ -25,7 +28,21 @@ export const signupValidationSchema = yup.object({
 		.max(20, "Password should be of maximum 20 characters length")
 		.required("Password is required"),
 	passwordConfirmation: yup
-		.string()
+		.string("Re-enter your password")
+		.min(8, "Password should be of minimum 8 characters length")
+		.max(20, "Password should be of maximum 20 characters length")
 		.required("Re-enter Password is required")
 		.oneOf([yup.ref("password"), null], "Passwords must match"),
+});
+
+export const loginValidationSchema = yup.object({
+	email: yup
+		.string("Enter your email")
+		.email("Enter a valid email")
+		.required("Email is required"),
+	password: yup
+		.string("Enter your password")
+		.min(8, "Password should be of minimum 8 characters length")
+		.max(20, "Password should be of maximum 20 characters length")
+		.required("Password is required"),
 });
