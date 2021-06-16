@@ -21,7 +21,7 @@ const noteRequested = () => ({
  * @returns {object}
  */
 const noteSuccess = () => ({
-	type: NOTE_REQUESTED,
+	type: NOTE_SUCCESS,
 });
 /**
  * Action creator for error state for notes api call
@@ -69,14 +69,15 @@ export const getUserNotes = () => {
  * @returns {Function}
  */
 export const createNote = (note) => {
-	return async (dispatch) => {
-		dispatch(noteRequested());
+	return async (dispatch, getState) => {
 		try {
-			await noteService.addNote(note);
-			const notes = await noteService.fetchNotes();
+			const createdNote = await noteService.addNote(note);
+
+			const prevNotes = getState().notes.notes;
+			const newNotes = [createdNote, ...prevNotes];
+			dispatch(saveNotes(newNotes));
 			dispatch(noteSuccess());
 			dispatch(closeModal());
-			dispatch(saveNotes(notes));
 		} catch (err) {
 			dispatch(noteError());
 		}

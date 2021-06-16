@@ -7,4 +7,5 @@ export const theme = {
 	fontFamily: "'Comic Neue', cursive",
 	backDrop: "rgba(0,0,0,0.3)",
 	modalFormBg: "#171717",
+	boxShadow: "4px 10px 30px rgba(0, 0, 0, 0.5)",
 };

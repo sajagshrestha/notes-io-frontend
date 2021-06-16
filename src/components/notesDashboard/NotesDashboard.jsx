@@ -10,6 +10,7 @@ import {
 } from "./NotesDashboard.styles";
 import CreateNoteForm from "./CreateNoteForm";
 import { openModal } from "../../actions/ui/modalActions";
+import NotePreview from "./NotePreview";
 
 export const NotesDashboard = () => {
 	const { isLoading, notes, error } = useSelector((state) => state.notes);
@@ -26,13 +27,18 @@ export const NotesDashboard = () => {
 	return (
 		<NotesDashboardWrapper>
 			<NotesCreateSection>
-				<Button onClick={handleCreateNote}>Create new Note</Button>
+				<Button onClick={handleCreateNote}>Create a Note</Button>
 			</NotesCreateSection>
-			<NotesSection>
-				{notes.map((note) => (
-					<div key={note.id}>{note.title}</div>
-				))}
-			</NotesSection>
+			{isLoading ? (
+				"loading..."
+			) : (
+				<NotesSection>
+					{notes.map((note) => (
+						<NotePreview title={note.title} key={note.id} />
+					))}
+				</NotesSection>
+			)}
+
 			<Modal>
 				<CreateNoteForm />
 			</Modal>

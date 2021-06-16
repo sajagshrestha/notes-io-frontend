@@ -26,6 +26,7 @@ const noteReducer = (state = initialState, action) => {
 		case NOTE_ERROR:
 			return {
 				...state,
+				isLoading: false,
 				error: action.payload,
 			};
 		case SAVE_NOTES:

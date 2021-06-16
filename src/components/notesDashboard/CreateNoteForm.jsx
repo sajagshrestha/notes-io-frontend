@@ -68,7 +68,11 @@ const CreateNoteForm = (props) => {
 				/>
 				<ButtonSection>
 					<Button onClick={handleCancelClick}>Cancel</Button>
-					<Button type="submit">Create</Button>
+					<Button
+						type="submit"
+						disabled={formik.isSubmitting ? true : false}>
+						{formik.isSubmitting ? "Creating.." : "Create"}
+					</Button>
 				</ButtonSection>
 			</Form>
 		</CreateFormWrapper>

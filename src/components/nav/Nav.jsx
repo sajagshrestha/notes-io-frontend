@@ -20,6 +20,7 @@ const Nav = () => {
 					<UserMenuButton
 						onClick={() => setOpen(!isOpen)}
 						variant="outlined"
+						disabled={true}
 						endIcon={<ExpandMoreOutlinedIcon />}>
 						{user.username}
 					</UserMenuButton>
