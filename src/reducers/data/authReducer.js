@@ -1,10 +1,10 @@
 import { loadFromStorage } from "../../utils/localStorage";
 
-const userLS = loadFromStorage("user");
+const user = loadFromStorage("user");
 
 const initialState = {
-	isLoggedIn: userLS ? userLS.isLoggedIn : false,
-	user: userLS ? userLS.user : null,
+	isLoggedIn: user ? user.isLoggedIn : false,
+	user: user ? user.userInfo : null,
 	isLoading: false,
 	error: null,
 };

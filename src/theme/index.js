@@ -5,4 +5,6 @@ export const theme = {
 	purple: "#A187D4",
 	yellow: "#F8D966",
 	fontFamily: "'Comic Neue', cursive",
+	backDrop: "rgba(0,0,0,0.3)",
+	modalFormBg: "#171717",
 };

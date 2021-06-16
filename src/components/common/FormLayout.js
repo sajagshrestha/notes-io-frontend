@@ -13,4 +13,5 @@ export const FormTitle = styled.h1`
 export const Form = styled.form`
 	display: grid;
 	grid-gap: 1.3rem;
+	/* justify-items: center; */
 `;

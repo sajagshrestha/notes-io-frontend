@@ -16,9 +16,9 @@ export const App = () => {
 					<Route exact path="/">
 						<Home />
 					</Route>
-					{/* <Route path="/notes">
+					<Route path="/notes">
 						<NotesDashboard />
-					</Route> */}
+					</Route>
 					<Route path="/signup">
 						<Signup />
 					</Route>

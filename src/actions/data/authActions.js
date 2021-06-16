@@ -7,7 +7,6 @@ const SIGNUP_ERROR = "SIGNUP_ERROR";
 /**
  * Action creator for loading state during signup.
  *
- * @param {object} user
  * @returns {object}
  */
 const signupRequested = () => ({

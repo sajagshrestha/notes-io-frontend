@@ -6,6 +6,7 @@ import styled from "styled-components";
 const DropDownMenuWrapper = styled.div`
 	position: absolute;
 	bottom: -3.5rem;
+	right: 0;
 	cursor: pointer;
 `;
 const DropDownItem = styled.div`

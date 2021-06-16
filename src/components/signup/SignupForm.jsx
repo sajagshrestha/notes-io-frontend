@@ -4,8 +4,6 @@ import Button from "../common/Button";
 import { Form, FormWrapper, FormTitle } from "../common/FormLayout";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
-
 import {
 	initalSignupValues,
 	signupValidationSchema,
@@ -14,7 +12,7 @@ import { signup } from "../../actions/data/authActions";
 
 const SignupForm = () => {
 	const dispatch = useDispatch();
-	const { isLoading, isLoggedIn, error } = useSelector((state) => state.user);
+	const { isLoading, error } = useSelector((state) => state.user);
 
 	const formik = useFormik({
 		initialValues: initalSignupValues,
@@ -23,7 +21,7 @@ const SignupForm = () => {
 			dispatch(signup(values));
 		},
 	});
-	if (isLoggedIn) return <Redirect to="/" />;
+
 	return (
 		<FormWrapper>
 			<FormTitle>Signup</FormTitle>
