@@ -13,7 +13,7 @@ import { login } from "../../actions/data/authActions";
 
 const LoginForm = () => {
 	const dispatch = useDispatch();
-	const { isLoading, isLoggedIn, error } = useSelector((state) => state.user);
+	const { isLoggedIn, error } = useSelector((state) => state.user);
 
 	const formik = useFormik({
 		initialValues: initialLoginValues,
@@ -56,7 +56,9 @@ const LoginForm = () => {
 					type="password"
 					fullWidth
 				/>
-				<Button type="submit">{isLoading ? "loading" : "Login"}</Button>
+				<Button type="submit" disabled={formik.isSubmitting}>
+					{formik.isSubmitting ? "loading" : "Login"}
+				</Button>
 			</Form>
 		</FormWrapper>
 	);

@@ -11,7 +11,7 @@ import { baseUrl, headerWithoutAuth } from "./config";
 export const signupUser = async (userCredentials) => {
 	return axios
 		.post(`${baseUrl}/auth/signup`, userCredentials, {
-			headers: headerWithoutAuth,
+			headers: headerWithoutAuth(),
 		})
 		.then((res) => {
 			const token = res.data.accessToken;

@@ -48,7 +48,7 @@ export const signup = (userCredentials) => {
 			const user = await userService.signupUser(userCredentials);
 			dispatch(signupSuccess(user));
 		} catch (err) {
-			dispatch(signupError(err.response.data.error));
+			dispatch(signupError(err));
 		}
 	};
 };
@@ -66,7 +66,7 @@ export const login = (userCredentials) => {
 			const user = await userService.loginUser(userCredentials);
 			dispatch(signupSuccess(user));
 		} catch (err) {
-			dispatch(signupError(err.response.data.error));
+			dispatch(signupError(err));
 		}
 	};
 };

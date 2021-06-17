@@ -17,3 +17,12 @@ export const NotesSection = styled.div`
 	justify-content: space-between;
 	grid-gap: 4rem;
 `;
+
+export const EmptyNotes = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	h1 {
+		color: white;
+	}
+`;

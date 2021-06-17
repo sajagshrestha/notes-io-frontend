@@ -16,3 +16,8 @@ export const NoteBody = styled.p`
 
 	color: ${(props) => props.theme.primaryText};
 `;
+
+export const ButtonSection = styled.div`
+	display: flex;
+	gap: 2rem;
+`;

@@ -137,3 +137,26 @@ export const editNote = (note, id) => {
 		}
 	};
 };
+
+/**
+ * Delete a note
+ *
+ * @param {String} id
+ * @returns {Function}
+ */
+export const deleteNote = (id) => {
+	return async (dispatch, getState) => {
+		try {
+			await noteService.deleteNote(id);
+			const prevNotes = getState().notes.notes;
+			const newNotes = prevNotes.filter((note) => {
+				if (note.id === id) return false;
+				return true;
+			});
+			dispatch(saveNotes(newNotes));
+			dispatch(selectNote(null));
+		} catch (err) {
+			dispatch(noteError());
+		}
+	};
+};

@@ -17,8 +17,9 @@ const SignupForm = () => {
 	const formik = useFormik({
 		initialValues: initalSignupValues,
 		validationSchema: signupValidationSchema,
-		onSubmit: (values) => {
+		onSubmit: (values, actions) => {
 			dispatch(signup(values));
+			actions.setSubmitting(false);
 		},
 	});
 
@@ -89,8 +90,8 @@ const SignupForm = () => {
 					fullWidth
 				/>
 
-				<Button type="submit">
-					{isLoading ? "loading" : "Signup"}
+				<Button type="submit" disabled={formik.isSubmitting}>
+					{formik.isSubmitting ? "loading" : "Signup"}
 				</Button>
 			</Form>
 		</FormWrapper>

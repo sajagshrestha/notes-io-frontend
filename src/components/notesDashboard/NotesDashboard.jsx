@@ -7,6 +7,7 @@ import {
 	NotesDashboardWrapper,
 	NotesCreateSection,
 	NotesSection,
+	EmptyNotes,
 } from "./NotesDashboard.styles";
 import CreateNoteForm from "./CreateNoteForm";
 import {
@@ -25,15 +26,15 @@ export const NotesDashboard = () => {
 
 	useEffect(() => {
 		dispatch(fetchNotes());
-		dispatch(selectNote(null));
 	}, []);
 
 	const openCreateForm = () => dispatch(openCreateModal());
 
 	const closeCreateForm = () => dispatch(closeCreateModal());
 
-	const redirectToNote = (id) => {
-		history.push(`/note/${id}`);
+	const redirectToNote = (note) => {
+		dispatch(selectNote(note));
+		history.push(`/note/${note.id}`);
 	};
 
 	return (
@@ -41,16 +42,21 @@ export const NotesDashboard = () => {
 			<NotesCreateSection>
 				<Button onClick={openCreateForm}>Create a Note</Button>
 			</NotesCreateSection>
-
-			<NotesSection>
-				{notes.map((note) => (
-					<NotePreview
-						handleClick={() => redirectToNote(note.id)}
-						title={note.title}
-						key={note.id}
-					/>
-				))}
-			</NotesSection>
+			{notes.length === 0 ? (
+				<EmptyNotes>
+					<h1>Wow, such Empty.</h1>
+				</EmptyNotes>
+			) : (
+				<NotesSection>
+					{notes.map((note) => (
+						<NotePreview
+							handleClick={() => redirectToNote(note)}
+							title={note.title}
+							key={note.id}
+						/>
+					))}
+				</NotesSection>
+			)}
 
 			<Modal isOpen={isCreateOpen} close={closeCreateForm}>
 				<CreateNoteForm />

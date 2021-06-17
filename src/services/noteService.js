@@ -65,3 +65,20 @@ export const updateNote = async (note, id) => {
 			return res.data;
 		});
 };
+
+/**
+ * Api call to delete a note
+ *
+ * @param {Object} note
+ * @param {Object} id
+ * @returns {Promise}
+ */
+export const deleteNote = async (id) => {
+	return axios
+		.delete(`${baseUrl}/note/${id}`, {
+			headers: headerWithAuth(),
+		})
+		.then((res) => {
+			return res.data;
+		});
+};
