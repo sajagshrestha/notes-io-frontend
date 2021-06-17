@@ -18,9 +18,9 @@ const NoteTitle = styled.h1`
 	color: ${(props) => props.theme.secondaryText};
 `;
 
-const NotePreview = ({ title }) => {
+const NotePreview = ({ title, handleClick }) => {
 	return (
-		<NotePreviewWrapper>
+		<NotePreviewWrapper onClick={handleClick}>
 			<NoteTitle>{title}</NoteTitle>
 		</NotePreviewWrapper>
 	);

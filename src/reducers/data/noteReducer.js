@@ -3,12 +3,14 @@ import {
 	NOTE_ERROR,
 	SAVE_NOTES,
 	NOTE_SUCCESS,
+	SELECT_NOTE,
 } from "../../actions/data/noteActions";
 
 const initialState = {
 	isLoading: false,
 	error: null,
 	notes: [],
+	selectedNote: null,
 };
 
 const noteReducer = (state = initialState, action) => {
@@ -33,6 +35,11 @@ const noteReducer = (state = initialState, action) => {
 			return {
 				...state,
 				notes: action.payload,
+			};
+		case SELECT_NOTE:
+			return {
+				...state,
+				selectedNote: action.payload,
 			};
 		default:
 			return state;

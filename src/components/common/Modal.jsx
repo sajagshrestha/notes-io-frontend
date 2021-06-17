@@ -1,17 +1,12 @@
 import React, { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../../actions/ui/modalActions";
 import { ModalBackDrop, ModalContent } from "./Modal.styles";
 
-const Modal = ({ children }) => {
-	const dispatch = useDispatch();
-	const { isOpen } = useSelector((state) => state.modal);
-
+const Modal = ({ children, isOpen, close }) => {
 	const backDropRef = useRef(null);
 
 	const onBackDropClick = (e) => {
 		if (e.target === backDropRef.current) {
-			dispatch(closeModal());
+			close();
 		}
 	};
 
