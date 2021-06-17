@@ -1,37 +1,38 @@
 import * as userService from "../../services/userService";
 
-const SIGNUP_REQUESTED = "SIGNUP_REQUESTED";
-const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
-const SIGNUP_ERROR = "SIGNUP_ERROR";
+export const AUTH_REQUESTED = "AUTH_REQUESTED";
+export const AUTH_SUCCESS = "AUTH_SUCCESS";
+export const AUTH_ERROR = "AUTH_ERROR";
+export const LOGOUT = "LOGOUT";
 
 /**
- * Action creator for loading state during signup.
+ * Action creator for loading state during auth.
  *
  * @returns {object}
  */
-const signupRequested = () => ({
-	type: SIGNUP_REQUESTED,
+const authRequested = () => ({
+	type: AUTH_REQUESTED,
 });
 
 /**
- * Action creator saving user after signup.
+ * Action creator saving user after auth.
  *
  * @param {object} user
  * @returns {object}
  */
-const signupSuccess = (user) => ({
-	type: SIGNUP_SUCCESS,
+const authSuccess = (user) => ({
+	type: AUTH_SUCCESS,
 	payload: user,
 });
 
 /**
- * Action creator for managing signup error.
+ * Action creator for managing auth error.
  *
- * @param {object} user
+ * @param {object} err
  * @returns {object}
  */
-const signupError = (err) => ({
-	type: SIGNUP_ERROR,
+export const authError = (err) => ({
+	type: AUTH_ERROR,
 	payload: err,
 });
 
@@ -43,12 +44,12 @@ const signupError = (err) => ({
  */
 export const signup = (userCredentials) => {
 	return async (dispatch) => {
-		dispatch(signupRequested());
+		dispatch(authRequested());
 		try {
 			const user = await userService.signupUser(userCredentials);
-			dispatch(signupSuccess(user));
+			dispatch(authSuccess(user));
 		} catch (err) {
-			dispatch(signupError(err));
+			dispatch(authError(err));
 		}
 	};
 };
@@ -61,12 +62,12 @@ export const signup = (userCredentials) => {
  */
 export const login = (userCredentials) => {
 	return async (dispatch) => {
-		dispatch(signupRequested());
+		dispatch(authRequested());
 		try {
 			const user = await userService.loginUser(userCredentials);
-			dispatch(signupSuccess(user));
+			dispatch(authSuccess(user));
 		} catch (err) {
-			dispatch(signupError(err));
+			dispatch(authError(err));
 		}
 	};
 };
@@ -79,6 +80,6 @@ export const login = (userCredentials) => {
 export const logout = () => {
 	return (dispatch) => {
 		userService.logoutUser();
-		dispatch({ type: "LOGOUT" });
+		dispatch({ type: LOGOUT });
 	};
 };

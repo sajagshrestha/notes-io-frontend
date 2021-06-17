@@ -4,10 +4,16 @@ export const FormWrapper = styled.div`
 	padding: 2rem 0 2rem 2rem;
 `;
 
-export const FormTitle = styled.h1`
+export const FormTitle = styled.div`
 	text-align: center;
 	margin-bottom: 1.5rem;
-	color: ${(props) => props.theme.yellow};
+	h1 {
+		color: ${(props) => props.theme.yellow};
+	}
+	p {
+		margin-top: 0.5rem;
+		color: ${(props) => props.theme.errorText};
+	}
 `;
 
 export const Form = styled.form`

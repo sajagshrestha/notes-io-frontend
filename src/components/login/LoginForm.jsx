@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import { Redirect } from "react-router-dom";
 import {
@@ -10,10 +10,11 @@ import Button from "../common/Button";
 import { Form, FormWrapper, FormTitle } from "../common/FormLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../actions/data/authActions";
+import { authError } from "../../actions/data/authActions";
 
 const LoginForm = () => {
 	const dispatch = useDispatch();
-	const { isLoggedIn, error } = useSelector((state) => state.user);
+	const { isLoading, isLoggedIn, error } = useSelector((state) => state.user);
 
 	const formik = useFormik({
 		initialValues: initialLoginValues,
@@ -22,11 +23,22 @@ const LoginForm = () => {
 			dispatch(login(values));
 		},
 	});
+
+	useEffect(() => {
+		return () => {
+			//clear error from store after unmount
+			dispatch(authError(null));
+		};
+	}, []);
+
 	if (isLoggedIn) return <Redirect to="/" />;
 
 	return (
 		<FormWrapper>
-			<FormTitle>Login</FormTitle>
+			<FormTitle>
+				<h1>Login</h1>
+				{error && <p>Email or password incorrect</p>}
+			</FormTitle>
 			<Form autoComplete="off" onSubmit={formik.handleSubmit}>
 				<TextField
 					id="email"
@@ -56,8 +68,8 @@ const LoginForm = () => {
 					type="password"
 					fullWidth
 				/>
-				<Button type="submit" disabled={formik.isSubmitting}>
-					{formik.isSubmitting ? "loading" : "Login"}
+				<Button type="submit" disabled={isLoading}>
+					{isLoading ? "loading" : "Login"}
 				</Button>
 			</Form>
 		</FormWrapper>

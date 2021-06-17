@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TextField from "../common/TextField";
 import Button from "../common/Button";
 import { Form, FormWrapper, FormTitle } from "../common/FormLayout";
@@ -9,6 +9,7 @@ import {
 	signupValidationSchema,
 } from "../../validators/authValidator";
 import { signup } from "../../actions/data/authActions";
+import { authError } from "../../actions/data/authActions";
 
 const SignupForm = () => {
 	const dispatch = useDispatch();
@@ -19,13 +20,22 @@ const SignupForm = () => {
 		validationSchema: signupValidationSchema,
 		onSubmit: (values, actions) => {
 			dispatch(signup(values));
-			actions.setSubmitting(false);
 		},
 	});
 
+	useEffect(() => {
+		return () => {
+			//clear error from store after unmount
+			dispatch(authError(null));
+		};
+	}, []);
+
 	return (
 		<FormWrapper>
-			<FormTitle>Signup</FormTitle>
+			<FormTitle>
+				<h1>Signup</h1>
+				{error && <p>Email Already in Use</p>}
+			</FormTitle>
 			<Form autoComplete="off" onSubmit={formik.handleSubmit}>
 				<TextField
 					id="email"
@@ -90,8 +100,8 @@ const SignupForm = () => {
 					fullWidth
 				/>
 
-				<Button type="submit" disabled={formik.isSubmitting}>
-					{formik.isSubmitting ? "loading" : "Signup"}
+				<Button type="submit" disabled={isLoading}>
+					{isLoading ? "loading" : "Signup"}
 				</Button>
 			</Form>
 		</FormWrapper>

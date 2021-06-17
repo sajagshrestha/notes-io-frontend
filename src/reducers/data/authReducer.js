@@ -1,4 +1,10 @@
 import { loadFromStorage } from "../../utils/localStorage";
+import {
+	AUTH_REQUESTED,
+	AUTH_SUCCESS,
+	AUTH_ERROR,
+	LOGOUT,
+} from "../../actions/data/authActions";
 
 const user = loadFromStorage("user");
 
@@ -11,13 +17,13 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case "SIGNUP_REQUESTED":
+		case AUTH_REQUESTED:
 			return {
 				...state,
 				isLoading: true,
 			};
 
-		case "SIGNUP_SUCCESS":
+		case AUTH_SUCCESS:
 			return {
 				...state,
 				isLoggedIn: true,
@@ -25,13 +31,13 @@ const authReducer = (state = initialState, action) => {
 				user: action.payload,
 				error: null,
 			};
-		case "SIGNUP_ERROR":
+		case AUTH_ERROR:
 			return {
 				...state,
 				isLoading: false,
 				error: action.payload,
 			};
-		case "LOGOUT":
+		case LOGOUT:
 			return {
 				...state,
 				isLoggedIn: false,
