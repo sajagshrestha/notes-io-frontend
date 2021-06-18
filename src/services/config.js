@@ -1,6 +1,6 @@
 import { loadFromStorage } from "../utils/localStorage";
 
-export const baseUrl = "http://localhost:5000/api";
+export const baseUrl = process.env.REACT_APP_BASE_URL;
 
 export const headerWithoutAuth = () => ({
 	"Content-Type": "application/json",

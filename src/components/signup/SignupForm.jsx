@@ -10,6 +10,7 @@ import {
 } from "../../validators/authValidator";
 import { signup } from "../../actions/data/authActions";
 import { authError } from "../../actions/data/authActions";
+import LabelLoader from "../common/LabelLoader";
 
 const SignupForm = () => {
 	const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const SignupForm = () => {
 			//clear error from store after unmount
 			dispatch(authError(null));
 		};
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<FormWrapper>
@@ -101,7 +102,7 @@ const SignupForm = () => {
 				/>
 
 				<Button type="submit" disabled={isLoading}>
-					{isLoading ? "loading" : "Signup"}
+					{isLoading ? <LabelLoader /> : "Signup"}
 				</Button>
 			</Form>
 		</FormWrapper>

@@ -3,7 +3,8 @@ import Button from "../common/Button";
 import styled from "styled-components";
 import { closeDeleteModal } from "../../actions/ui/modalActions";
 import { deleteNote } from "../../actions/data/noteActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import LabelLoader from "../common/LabelLoader";
 
 const DeleteConfirmationWrapper = styled.div`
 	display: grid;
@@ -24,16 +25,15 @@ const DeleteButtonSection = styled.div`
 `;
 
 const DeleteConfirmationTitle = styled.h1`
-	font-size: 3rem;
+	font-size: 2.2rem;
 	color: ${(props) => props.theme.yellow};
 `;
 
 const DeleteConfirmation = ({ id }) => {
 	const dispatch = useDispatch();
-
+	const { isSubmitting } = useSelector((state) => state.notes);
 	const onDeleteClick = (id) => {
 		dispatch(deleteNote(id));
-		dispatch(closeDeleteModal());
 	};
 
 	return (
@@ -46,7 +46,12 @@ const DeleteConfirmation = ({ id }) => {
 				<Button onClick={() => dispatch(closeDeleteModal())}>
 					Cancel
 				</Button>
-				<Button onClick={() => onDeleteClick(id)}>Delete</Button>
+				<Button
+					onClick={() => onDeleteClick(id)}
+					disabled={isSubmitting}
+					filled={true}>
+					{isSubmitting ? <LabelLoader dark={true} /> : "Delete"}
+				</Button>
 			</DeleteButtonSection>
 		</DeleteConfirmationWrapper>
 	);

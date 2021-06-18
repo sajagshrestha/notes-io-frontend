@@ -15,6 +15,10 @@ export const Logo = styled.img`
 `;
 export const NavLinks = styled.div`
 	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 4rem;
+	font-size: 1.4rem;
 `;
 
 export const UserMenuButton = styled(Button)`

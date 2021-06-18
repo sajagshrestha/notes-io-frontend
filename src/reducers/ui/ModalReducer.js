@@ -5,6 +5,7 @@ import {
 	CLOSE_CREATE_MODAL,
 	CLOSE_DELETE_MODAL,
 	CLOSE_EDIT_MODAL,
+	CLOSE_ALL_MODAL,
 } from "../../actions/ui/modalActions";
 
 const initialState = {
@@ -45,6 +46,8 @@ const modalReducer = (state = initialState, action) => {
 				...state,
 				isDeleteOpen: false,
 			};
+		case CLOSE_ALL_MODAL:
+			return initialState;
 		default:
 			return state;
 	}

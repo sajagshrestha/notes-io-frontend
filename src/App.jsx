@@ -7,6 +7,8 @@ import Note from "./components/note/Note";
 import Login from "./components/login/Login";
 import { Switch, Route } from "react-router-dom";
 import { AppWrapper, MainWrapper } from "./App.styles";
+import PrivateRoute from "./components/common/PrivateRoute";
+import PageNotFound from "./components/pageNotFound/pageNotFound";
 
 export const App = () => {
 	return (
@@ -17,17 +19,20 @@ export const App = () => {
 					<Route exact path="/">
 						<Home />
 					</Route>
-					<Route path="/notes">
-						<NotesDashboard />
-					</Route>
 					<Route path="/signup">
 						<Signup />
 					</Route>
 					<Route path="/login">
 						<Login />
 					</Route>
-					<Route path="/note/:id">
+					<PrivateRoute path="/notes">
+						<NotesDashboard />
+					</PrivateRoute>
+					<PrivateRoute path="/note/:id">
 						<Note />
+					</PrivateRoute>
+					<Route>
+						<PageNotFound />
 					</Route>
 				</Switch>
 			</MainWrapper>

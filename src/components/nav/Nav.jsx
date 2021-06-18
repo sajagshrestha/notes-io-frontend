@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "../common/Link";
 import { NavWrapper, Logo, NavLinks, UserMenuButton } from "./Nav.styles";
 import Button from "../common/Button";
 import { useSelector } from "react-redux";
@@ -17,12 +17,15 @@ const Nav = () => {
 			</Link>
 			<NavLinks>
 				{isLoggedIn ? (
-					<UserMenuButton
-						onClick={() => setOpen(!isOpen)}
-						variant="outlined"
-						endIcon={<ExpandMoreOutlinedIcon />}>
-						{user.username}
-					</UserMenuButton>
+					<>
+						<Link to="/notes">Notes</Link>
+						<UserMenuButton
+							onClick={() => setOpen(!isOpen)}
+							variant="outlined"
+							endIcon={<ExpandMoreOutlinedIcon />}>
+							{user.username}
+						</UserMenuButton>
+					</>
 				) : (
 					<Link to="/login">
 						<Button>Login</Button>

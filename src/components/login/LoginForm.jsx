@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useFormik } from "formik";
-import { Redirect } from "react-router-dom";
 import {
 	initialLoginValues,
 	loginValidationSchema,
@@ -11,10 +10,12 @@ import { Form, FormWrapper, FormTitle } from "../common/FormLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../actions/data/authActions";
 import { authError } from "../../actions/data/authActions";
+import Link from "../common/Link";
+import LabelLoader from "../common/LabelLoader";
 
 const LoginForm = () => {
 	const dispatch = useDispatch();
-	const { isLoading, isLoggedIn, error } = useSelector((state) => state.user);
+	const { isLoading, error } = useSelector((state) => state.user);
 
 	const formik = useFormik({
 		initialValues: initialLoginValues,
@@ -29,9 +30,7 @@ const LoginForm = () => {
 			//clear error from store after unmount
 			dispatch(authError(null));
 		};
-	}, []);
-
-	if (isLoggedIn) return <Redirect to="/" />;
+	}, [dispatch]);
 
 	return (
 		<FormWrapper>
@@ -69,8 +68,11 @@ const LoginForm = () => {
 					fullWidth
 				/>
 				<Button type="submit" disabled={isLoading}>
-					{isLoading ? "loading" : "Login"}
+					{isLoading ? <LabelLoader /> : "Login"}
 				</Button>
+				<p>
+					Need an account? <Link to="/signup">Signup</Link> instead.
+				</p>
 			</Form>
 		</FormWrapper>
 	);

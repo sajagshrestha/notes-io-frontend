@@ -4,6 +4,7 @@ export const OPEN_EDIT_MODAL = "OPEN_EDIT_MODAL";
 export const CLOSE_EDIT_MODAL = "CLOSE_EDIT_MODAL";
 export const OPEN_DELETE_MODAL = "OPEN_DELETE_MODAL";
 export const CLOSE_DELETE_MODAL = "CLOSE_DELETE_MODAL";
+export const CLOSE_ALL_MODAL = "CLOSE_ALL_MODAL";
 
 /**
  * Action creator for opening create modal
@@ -57,4 +58,8 @@ export const openDeleteModal = () => ({
  */
 export const closeDeleteModal = () => ({
 	type: CLOSE_DELETE_MODAL,
+});
+
+export const closeAllModal = () => ({
+	type: CLOSE_ALL_MODAL,
 });

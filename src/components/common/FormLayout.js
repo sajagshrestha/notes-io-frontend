@@ -2,6 +2,10 @@ import styled from "styled-components";
 
 export const FormWrapper = styled.div`
 	padding: 2rem 0 2rem 2rem;
+	p {
+		text-align: center;
+		color: ${(props) => props.theme.primaryText};
+	}
 `;
 
 export const FormTitle = styled.div`

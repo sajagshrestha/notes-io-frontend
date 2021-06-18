@@ -16,17 +16,18 @@ import {
 } from "../../actions/ui/modalActions";
 import NotePreview from "./NotePreview";
 import { useHistory } from "react-router";
+import FullPageLoader from "../common/FullPageLoader";
 
 export const NotesDashboard = () => {
 	const history = useHistory();
 
-	const { notes } = useSelector((state) => state.notes);
+	const { isLoading, notes } = useSelector((state) => state.notes);
 	const { isCreateOpen } = useSelector((state) => state.modal);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		dispatch(fetchNotes());
-	}, []);
+	}, [dispatch]);
 
 	const openCreateForm = () => dispatch(openCreateModal());
 
@@ -36,6 +37,8 @@ export const NotesDashboard = () => {
 		dispatch(selectNote(note));
 		history.push(`/note/${note.id}`);
 	};
+
+	if (isLoading) return <FullPageLoader />;
 
 	return (
 		<NotesDashboardWrapper>

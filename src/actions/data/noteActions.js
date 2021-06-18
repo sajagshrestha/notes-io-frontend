@@ -1,10 +1,13 @@
 import * as noteService from "../../services/noteService";
+import { closeAllModal } from "../ui/modalActions";
 
 export const NOTE_REQUESTED = "NOTE_REQUESTED";
 export const NOTE_SUCCESS = "NOTE_SUCCESS";
 export const NOTE_ERROR = "NOTE_ERROR";
 export const SAVE_NOTES = "SAVE_NOTES";
 export const SELECT_NOTE = "SELECT_NOTE";
+export const NOTE_SUBMIT_REQUESTED = "NOTE_SUBMIT_REQUESTED";
+export const NOTE_SUBMIT_SUCCESS = "NOTE_SUBMIT_SUCCESS";
 
 /**
  * Action creator for loading state for notes api calls.
@@ -16,13 +19,14 @@ const noteRequested = () => ({
 });
 
 /**
- * Action creator for loading state for notes api calls.
+ * Action creator for success state for notes api calls.
  *
  * @returns {object}
  */
 const noteSuccess = () => ({
 	type: NOTE_SUCCESS,
 });
+
 /**
  * Action creator for error state for notes api call
  *
@@ -31,6 +35,24 @@ const noteSuccess = () => ({
  */
 const noteError = (err) => ({
 	type: NOTE_ERROR,
+});
+
+/**
+ * Action creator for submitting state for notes api calls.
+ *
+ * @returns {object}
+ */
+const noteSubmitRequested = () => ({
+	type: NOTE_SUBMIT_REQUESTED,
+});
+
+/**
+ * Action creator for submitting state for notes api calls.
+ *
+ * @returns {object}
+ */
+const noteSubmitSuccess = () => ({
+	type: NOTE_SUBMIT_SUCCESS,
 });
 
 /**
@@ -101,11 +123,13 @@ export const fetchNoteById = (id) => {
 export const createNote = (note) => {
 	return async (dispatch, getState) => {
 		try {
+			dispatch(noteSubmitRequested());
 			const createdNote = await noteService.addNote(note);
 			const prevNotes = getState().notes.notes;
 			const newNotes = [createdNote, ...prevNotes];
 			dispatch(saveNotes(newNotes));
-			dispatch(noteSuccess());
+			dispatch(noteSubmitSuccess());
+			dispatch(closeAllModal());
 		} catch (err) {
 			dispatch(noteError());
 		}
@@ -122,6 +146,7 @@ export const createNote = (note) => {
 export const editNote = (note, id) => {
 	return async (dispatch, getState) => {
 		try {
+			dispatch(noteSubmitRequested());
 			const updatedNote = await noteService.updateNote(note, id);
 			dispatch(selectNote(updatedNote));
 			const prevNotes = getState().notes.notes;
@@ -132,6 +157,8 @@ export const editNote = (note, id) => {
 				return note;
 			});
 			dispatch(saveNotes(newNotes));
+			dispatch(noteSubmitSuccess());
+			dispatch(closeAllModal());
 		} catch (err) {
 			dispatch(noteError());
 		}
@@ -147,6 +174,7 @@ export const editNote = (note, id) => {
 export const deleteNote = (id) => {
 	return async (dispatch, getState) => {
 		try {
+			dispatch(noteSubmitRequested());
 			await noteService.deleteNote(id);
 			const prevNotes = getState().notes.notes;
 			const newNotes = prevNotes.filter((note) => {
@@ -155,6 +183,8 @@ export const deleteNote = (id) => {
 			});
 			dispatch(saveNotes(newNotes));
 			dispatch(selectNote(null));
+			dispatch(noteSubmitSuccess());
+			dispatch(closeAllModal());
 		} catch (err) {
 			dispatch(noteError());
 		}

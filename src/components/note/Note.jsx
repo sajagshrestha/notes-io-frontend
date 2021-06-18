@@ -13,10 +13,11 @@ import {
 } from "../../actions/ui/modalActions";
 import EditNoteForm from "./EditNoteForm";
 import DeleteConfirmation from "./DeleteConfirmation";
+import FullPageLoader from "../common/FullPageLoader";
 
 const Note = () => {
 	const { id } = useParams();
-	const { selectedNote, error } = useSelector((state) => state.notes);
+	const { isLoading, selectedNote } = useSelector((state) => state.notes);
 	const { isEditOpen, isDeleteOpen } = useSelector((state) => state.modal);
 	const dispatch = useDispatch();
 
@@ -25,6 +26,7 @@ const Note = () => {
 	}, [dispatch, id]);
 
 	if (!selectedNote) return <Redirect to="/notes" />;
+	if (isLoading) return <FullPageLoader />;
 	return (
 		<NoteWrapper>
 			<NoteTitle>{selectedNote.title}</NoteTitle>

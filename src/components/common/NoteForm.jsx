@@ -9,6 +9,8 @@ import {
 	Form,
 } from "./FormLayout";
 import { noteValidationSchema } from "../../validators/noteValidator";
+import { useSelector } from "react-redux";
+import LabelLoader from "./LabelLoader";
 
 const FormWrapper = styled(GeneralFormWrapper)`
 	padding: 3rem;
@@ -24,19 +26,21 @@ const ButtonSection = styled.div`
 `;
 
 const NoteForm = ({ initialValues, submit, close, title, buttonLabel }) => {
+	const { isSubmitting } = useSelector((state) => state.notes);
+
 	const formik = useFormik({
 		initialValues,
 		validationSchema: noteValidationSchema,
-		onSubmit: (values, actions) => {
+		onSubmit: (values) => {
 			submit(values);
-			actions.setSubmitting(false);
-			close();
 		},
 	});
 
 	return (
 		<FormWrapper>
-			<FormTitle>{title}</FormTitle>
+			<FormTitle>
+				<h1>{title}</h1>
+			</FormTitle>
 			<Form autoComplete="off" onSubmit={formik.handleSubmit}>
 				<TextField
 					id="title"
@@ -62,10 +66,12 @@ const NoteForm = ({ initialValues, submit, close, title, buttonLabel }) => {
 					helperText={formik.touched.body && formik.errors.body}
 				/>
 				<ButtonSection>
-					<Button
-						type="submit"
-						disabled={formik.isSubmitting ? true : false}>
-						{formik.isSubmitting ? "Creating.." : buttonLabel}
+					<Button type="submit" filled={true} disabled={isSubmitting}>
+						{isSubmitting ? (
+							<LabelLoader dark={true} />
+						) : (
+							buttonLabel
+						)}
 					</Button>
 					<Button onClick={close}>Cancel</Button>
 				</ButtonSection>
